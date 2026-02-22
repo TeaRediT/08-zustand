@@ -31,19 +31,16 @@ const NotesPageClient = ({ tag }: NotesPageClientProps) => {
     throwOnError: true,
   });
 
-  const updateQuery = useDebouncedCallback(
-    (e: React.ChangeEvent<HTMLInputElement>): void => {
-      setQuery(e.target.value);
-      setPage(1);
-    },
-    300,
-  );
+  const handleUpdateQuery = useDebouncedCallback((value: string): void => {
+    setQuery(value);
+    setPage(1);
+  }, 300);
 
   return (
     <>
       <div className={css.app}>
         <div className={css.toolbar}>
-          <SearchBox query={query} updateQuery={updateQuery}></SearchBox>
+          <SearchBox query={query} updateQuery={handleUpdateQuery}></SearchBox>
           {isLoading && <p>Loading, please wait...</p>}
           {error && <p>Something went wrong.</p>}
           {note && note.totalPages > 1 && (
