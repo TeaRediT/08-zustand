@@ -1,7 +1,5 @@
 import axios from "axios";
-import type { Note } from "@/types/note";
-
-type CreateNote = Omit<Note, "id" | "createdAt" | "updatedAt">;
+import type { CreateNote, Note } from "@/types/note";
 
 export interface NoteList {
   notes: Note[];

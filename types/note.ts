@@ -6,3 +6,5 @@ export interface Note {
   title: string;
   updatedAt: string;
 }
+
+export type CreateNote = Omit<Note, "id" | "createdAt" | "updatedAt">;

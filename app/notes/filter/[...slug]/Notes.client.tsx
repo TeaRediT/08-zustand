@@ -8,8 +8,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import Pagination from "@/components/Pagination/Pagination";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
+import Link from "next/link";
 
 interface NotesPageClientProps {
   tag: string;
@@ -18,7 +17,6 @@ interface NotesPageClientProps {
 const NotesPageClient = ({ tag }: NotesPageClientProps) => {
   const [query, setQuery] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const [isModal, setIsModal] = useState<boolean>(false);
 
   const {
     data: note,
@@ -32,14 +30,6 @@ const NotesPageClient = ({ tag }: NotesPageClientProps) => {
     refetchOnMount: false,
     throwOnError: true,
   });
-
-  const handleClick = (): void => {
-    setIsModal(true);
-  };
-
-  const handleClose = (): void => {
-    setIsModal(false);
-  };
 
   const updateQuery = useDebouncedCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -64,18 +54,13 @@ const NotesPageClient = ({ tag }: NotesPageClientProps) => {
             ></Pagination>
           )}
           {
-            <button className={css.button} onClick={handleClick}>
+            <Link href={"/notes/action/create"} className={css.button}>
               Create note +
-            </button>
+            </Link>
           }
         </div>
         {note && note.notes.length > 0 && (
           <NoteList notes={note.notes}></NoteList>
-        )}
-        {isModal && (
-          <Modal onClose={handleClose}>
-            <NoteForm onClose={handleClose}></NoteForm>
-          </Modal>
         )}
       </div>
     </>
