@@ -11,7 +11,7 @@ interface NoteDetailsProps {
   params: Promise<{ id: string }>;
 }
 
-export const generateMetadat = async ({
+export const generateMetadata = async ({
   params,
 }: NoteDetailsProps): Promise<Metadata> => {
   const { id } = await params;
@@ -22,6 +22,8 @@ export const generateMetadat = async ({
     title: `${noteTitle} | My Notes`,
     description: note.content,
     openGraph: {
+      title: `${noteTitle} | My Notes`,
+      description: note.content,
       url: `/notes/${id}`,
       images: [
         {
